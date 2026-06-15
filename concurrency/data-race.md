@@ -1,6 +1,8 @@
 # Data Race와 동시성 안전 기법
 
-> **Context**: Launcher 프로젝트의 `NsdModuleManager` 코틀린 코드에서 data race 방지 대책을 정리하면서 학습한 내용.
+> **Context**: Launcher 프로젝트의 `NsdManagerModule.kt`에서 실제로 발견된 data race 버그를 분석하면서 학습한 내용.
+> NSD 콜백 스레드와 메인 스레드가 `isResolving`, `activeResolveSessionId` 등 공유 필드에 `@Volatile` 없이 동시 접근해 이중 resolve, 무효 세션 이벤트 방출이 발생할 수 있었다.
+> 같은 로직을 TypeScript(React Native JS 레이어)로 작성했다면 이 버그 자체가 존재하지 않는다는 점이 두 환경의 결정적 차이다.
 
 ---
 
@@ -92,11 +94,100 @@ CAS 명령어              → 복합 연산의 원자성
 = AtomicBoolean의 완전한 스레드 안전성
 ```
 
-| | `@Volatile` | `AtomicBoolean` |
+| | `@Volatile` | `AtomicBoolean` | `synchronized` |
+|---|---|---|---|
+| 메모리 가시성 | ✅ | ✅ | ✅ |
+| 단일 읽기/쓰기 원자성 | int 이하만 ✅ | ✅ | ✅ |
+| 복합 연산 원자성 (CAS) | ❌ | ✅ | ✅ |
+| 임계 구역 전체 보호 | ❌ | ❌ | ✅ |
+
+#### 보충: `long` / `double`의 Word Tearing
+
+JVM 스펙(JLS §17.7)은 `long`(64비트)과 `double`(64비트)의 읽기/쓰기를 **원자적으로 보장하지 않는다.**
+32비트 JVM에서는 상위 32비트, 하위 32비트를 **두 번에 나눠 쓸 수 있어** tearing이 발생할 수 있다.
+
+```kotlin
+// 스레드 A: Long.MAX_VALUE(0x7FFF_FFFF_FFFF_FFFF)를 쓰는 중
+// 스레드 B: 읽으면 상위/하위가 섞인 쓰레기 값(예: 0x7FFF_FFFF_0000_0000)을 읽을 수 있음
+var sharedLong: Long = 0L  // @Volatile 없으면 위험
+```
+
+해결책: `@Volatile`을 붙이면 64비트 접근도 원자적으로 처리하도록 JVM이 보장한다.
+`boolean`, `int`, 참조형(reference)은 32비트 이하이므로 `@Volatile` 없이도 tearing은 없다
+(단, 가시성 문제는 여전히 존재).
+
+---
+
+### 3. `synchronized` — 임계 구역 전체를 상호 배제
+
+CAS는 **단일 변수 하나**에 최적화된 방식이다. 여러 변수를 함께 갱신하거나 복잡한 로직 전체를 보호해야 할 때는 `synchronized`를 쓴다.
+
+```kotlin
+// 메서드 전체를 잠금
+@Synchronized
+fun processNext() {
+    if (!isResolving) {
+        isResolving = true  // 여러 변수를
+        activeSessionId++   // 동시에 일관되게 갱신
+        resolve()
+    }
+}
+
+// 특정 블록만 잠금 (lock 객체를 명시)
+private val lock = Any()
+
+fun enqueue(item: ServiceInfo) {
+    synchronized(lock) {
+        resolveQueue.add(item)
+        if (!isResolving) processNext()
+    }
+}
+```
+
+- 진입 시 **monitor lock** 획득, 탈출 시 자동 해제 → 데드락 위험은 있으나 누락 위험은 없음
+- `@Volatile` + 원자성 + 상호 배제를 모두 커버
+- `AtomicBoolean`보다 무겁지만, 보호해야 할 상태가 여러 개일 때 훨씬 안전
+
+> **실제 버그 연결**: `NsdManagerModule.kt`의 `processNextResolve()`는 `isResolving`, `isDiscovering`, `activeResolveSessionId`를 한 블록에서 함께 변경한다.
+> 이 세 변수를 원자적으로 묶으려면 CAS 세 개로는 부족하고, 하나의 `synchronized(lock)` 블록이 정확한 해법이다.
+
+---
+
+### 4. CAS의 한계 — ABA 문제
+
+CAS는 "현재 값 == expected"이면 교체한다. 그런데 값이 **A → B → A**로 변했다면?
+
+```
+스레드 A: 값 = A 확인 (compareAndSet 직전에 정지)
+스레드 B: A → B → A 로 값을 두 번 바꿈
+스레드 A: 재개 — 값이 여전히 A이므로 CAS 성공
+          그러나 B를 거쳤다는 사실은 놓침
+```
+
+`AtomicBoolean`은 `false → true → false` 사이클이 가능하지만 boolean 특성상 실무 문제가 되는 경우가 드물다.
+문제는 **lock-free 스택이나 큐** 같은 자료구조에서 발생한다: 노드가 제거됐다가 같은 주소로 재할당되면 CAS가 "변경 없음"으로 잘못 판단해 **이미 제거된 노드를 살아있는 것으로 취급**하는 버그가 생긴다.
+
+#### 해결: `AtomicStampedReference` (버전 번호 추가)
+
+```kotlin
+// AtomicBoolean 대신 stamp(버전)를 함께 관리
+val ref = AtomicStampedReference<String>("A", 0)
+
+val stamp = intArrayOf(0)
+val current = ref.get(stamp)          // 현재 값 + 버전 동시 조회
+ref.compareAndSet(
+    current, "B",                     // 값 교체
+    stamp[0], stamp[0] + 1            // 버전도 함께 증가
+)
+// 이제 A → B → A 시도 시 버전이 달라 CAS 실패 → ABA 방지
+```
+
+| | CAS (`AtomicBoolean`) | `AtomicStampedReference` |
 |---|---|---|
-| 메모리 가시성 | ✅ | ✅ |
-| 단일 읽기/쓰기 원자성 | ✅ | ✅ |
-| 복합 연산 원자성 (CAS) | ❌ | ✅ |
+| 단일 변수 원자성 | ✅ | ✅ |
+| ABA 문제 | ❌ (발생 가능) | ✅ (버전으로 방지) |
+| 복잡도 | 단순 | 높음 |
+| 사용 시기 | boolean/int 단순 플래그 | lock-free 자료구조, 포인터 기반 연산 |
 
 ---
 
@@ -104,13 +195,113 @@ CAS 명령어              → 복합 연산의 원자성
 
 ### Java / Kotlin
 
-- `@Volatile`: 메모리 가시성만 보장
-- `AtomicBoolean`, `AtomicInteger` 등: CAS 기반 lock-free 원자 연산
+- `@Volatile`: 가시성 보장 + `long`/`double` tearing 방지
+- `AtomicBoolean` / `AtomicInteger` 등: CAS 기반 lock-free 원자 연산
+- `synchronized`: 임계 구역 전체 상호 배제
+- `java.util.concurrent.locks.ReentrantLock`: `synchronized`보다 세밀한 제어 (tryLock, timeout 등)
 
-### TypeScript / JavaScript
+### TypeScript / JavaScript — "Data Race가 구조적으로 불가능한 환경"
 
-- **싱글 스레드**이므로 data race 자체가 없음
-- `async/await`의 비동기 컨텍스트 전환 문제는 별개 (race condition은 존재)
+**싱글 스레드 이벤트 루프** 모델이라 data race 자체가 언어 설계 수준에서 존재하지 않는다.
+Kotlin에서 발생한 `NsdManagerModule.kt` 버그가 TypeScript였다면 어떻게 달랐는지 구체적으로 비교한다.
+
+#### 실제 버그: Kotlin `NsdManagerModule.kt`
+
+NSD(네트워크 서비스 탐색) 모듈에서 두 스레드가 공유 변수에 동시 접근했다.
+
+```kotlin
+// NSD 콜백 스레드에서 호출됨
+override fun onServiceFound(serviceInfo: NsdServiceInfo) {
+    synchronized(resolveQueue) {
+        resolveQueue.add(serviceInfo)
+    }
+    processNextResolve()  // ← NSD 스레드에서 직접 실행
+}
+
+// 메인 스레드의 타임아웃 핸들러에서도 호출됨
+mainHandler.postDelayed({
+    processNextResolve()  // ← 메인 스레드에서 실행
+}, resolveTimeoutMs)
+
+// processNextResolve 내부: @Volatile 없이 공유 필드 접근
+private fun processNextResolve(...) {
+    if (!isDiscovering) return           // 두 스레드가 동시에 읽음
+    if (isResolving && retryCount == 0) return
+    isResolving = true                   // 두 스레드가 동시에 씀
+    val id = activeResolveSessionId + 1  // 비원자적 read-modify-write
+    activeResolveSessionId = id
+}
+```
+
+**결과**: 두 스레드가 모두 `isResolving = false`를 읽고 진입 → `resolveService()` 이중 호출 → 같은 서비스가 두 번 발견된 것처럼 이벤트 방출 또는 세션 ID 불일치로 무효 결과 수신.
+
+#### 같은 로직을 TypeScript로 작성하면
+
+```typescript
+// useMdnsDiscovery.ts — React Native JS 레이어
+// NSD 이벤트는 네이티브 → JS 브리지를 거쳐 메인 JS 스레드로 직렬화됨
+
+let isResolving = false;          // 단순 변수로 충분
+let activeSessionId = 0;
+
+function processNextResolve() {
+    if (!isDiscovering) return;
+    if (isResolving) return;      // 이 검사가 항상 안전
+                                  // JS는 싱글 스레드이므로 두 실행 흐름이
+                                  // 이 줄을 '동시에' 실행하는 것이 불가능
+    isResolving = true;
+    activeSessionId += 1;         // read-modify-write도 원자적
+    resolve();
+}
+
+// 이벤트 A와 타임아웃 B가 '동시에' 오더라도
+// 이벤트 루프는 A를 완전히 처리한 뒤 B를 처리한다
+// processNextResolve()는 항상 한 번에 하나씩 실행된다
+```
+
+**차이의 근거: 이벤트 루프(Event Loop) 모델**
+
+```
+Kotlin (JVM, 멀티스레드)         TypeScript (V8, 싱글스레드)
+┌─────────────────────┐          ┌─────────────────────────┐
+│ NSD 콜백 스레드     │          │ Call Stack (하나뿐)      │
+│  └─ processNext()   │◀─ race   │  └─ processNext()        │
+│ 메인 스레드         │          │                          │
+│  └─ processNext()   │          │ Event Queue              │
+└─────────────────────┘          │  ├─ nsd 이벤트           │
+  두 스레드가 동시에 실행          │  └─ timeout 콜백         │
+  → data race 발생               │                          │
+                                 │ 콜 스택이 비어야만        │
+                                 │ 큐에서 꺼내 실행          │
+                                 │ → 동시 실행 자체가 없음   │
+                                 └─────────────────────────┘
+```
+
+- JS 엔진(V8)은 **콜 스택이 하나**다. 함수 A가 실행 중이면 함수 B는 무조건 대기한다.
+- 네이티브 레이어(Kotlin)에서 온 이벤트는 **JS 브리지를 통해 이벤트 큐에 삽입**되고, 현재 실행 중인 JS 작업이 끝난 뒤 순서대로 처리된다.
+- 따라서 `isResolving`, `activeSessionId`는 `@Volatile`도, `AtomicBoolean`도, `synchronized`도 필요 없다.
+
+#### TypeScript에도 있는 것: Race Condition (data race와 다름)
+
+data race(동시 접근)는 없지만, **비동기 작업 사이의 논리적 경쟁**은 존재한다.
+
+```typescript
+// 이 두 줄 사이에 await가 있으면 다른 이벤트가 끼어들 수 있음
+const val = await db.get('count');   // (1) 읽기 — 여기서 다른 코루틴이 실행될 수 있음
+await db.set('count', val + 1);      // (2) 쓰기 — (1)이 읽은 값이 이미 낡은 값일 수 있음
+
+// 동시 호출 시나리오:
+// A: val = 5 읽음, 일시 정지
+// B: val = 5 읽음, 6으로 씀 (count = 6)
+// A: 재개, 5+1=6으로 씀 (B의 결과 덮어씀) → count가 7이 아닌 6
+```
+
+| | Kotlin (JVM) | TypeScript (JS) |
+|---|---|---|
+| Data Race (동시 접근) | ✅ 발생 가능 | ❌ 구조적으로 불가 |
+| Race Condition (논리적 경쟁) | ✅ 발생 가능 | ✅ 발생 가능 (`await` 사이) |
+| 보호 수단 | `@Volatile`, `Atomic*`, `synchronized` | 로직으로 방어 (플래그, 취소 토큰 등) |
+| NsdManagerModule 버그 재현 여부 | ✅ 실제 발생 | ❌ 불가 |
 
 ### C / C++
 
