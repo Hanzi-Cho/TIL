@@ -112,7 +112,7 @@ def make_donut_url(stats: dict[str, int], title: str) -> str:
     }
 
     encoded = urllib.parse.quote(json.dumps(config, ensure_ascii=False))
-    return f"https://quickchart.io/chart?c={encoded}&w=380&h=190&bkg=white"
+    return f"https://quickchart.io/chart?c={encoded}&w=330&h=165&bkg=white"
 
 
 def format_ranking_table(stats: dict[str, int], top_n: int = 5) -> str:

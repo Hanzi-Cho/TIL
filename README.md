@@ -11,8 +11,8 @@ Today I Learned
 <th align="center">🏆 전체 누적</th>
 </tr>
 <tr>
-<td align="center"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22concurrency%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B2%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=380&h=190&bkg=white" /></td>
-<td align="center"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22concurrency%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B2%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=380&h=190&bkg=white" /></td>
+<td align="center"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22concurrency%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B2%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=330&h=165&bkg=white" /></td>
+<td align="center"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22concurrency%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B2%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=330&h=165&bkg=white" /></td>
 </tr>
 <tr>
 <td>
@@ -34,7 +34,7 @@ Today I Learned
 </tr>
 </table>
 
-> Github Actions을 통해 **2026년 06월 23일 16:14 (KST)** 에 자동으로 업데이트되었습니다.
+> Github Actions을 통해 **2026년 06월 23일 16:15 (KST)** 에 자동으로 업데이트되었습니다.
 
 <!-- END_SECTION:learning_stats -->
 
