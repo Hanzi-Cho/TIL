@@ -1,0 +1,36 @@
+name: Update Learning Stats
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'README.md'
+  schedule:
+    # 매일 KST 자정 (UTC 15:00)
+    - cron: '0 15 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 전체 커밋 히스토리 필요
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run stats update
+        run: python scripts/update_readme.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git diff --quiet && git diff --staged --quiet \
+            || (git add README.md && git commit -m "chore: update learning stats [skip ci]" && git push)
