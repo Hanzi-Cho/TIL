@@ -81,7 +81,10 @@ def analyze_commits():
     return recent, total
 
 
-def bar(ratio: float, width: int = 12) -> str:
+MEDALS = {1: "🥇", 2: "🥈", 3: "🥉"}
+
+
+def bar(ratio: float, width: int = 14) -> str:
     filled = round(ratio * width)
     return "█" * filled + "░" * (width - filled)
 
@@ -92,20 +95,23 @@ def format_ranking(stats: dict[str, int], top_n: int = 5) -> str:
 
     ranked = sorted(stats.items(), key=lambda x: x[1], reverse=True)[:top_n]
     max_count = ranked[0][1]
-    lines = []
+
+    lines = [
+        "| 순위 | 도메인 | 커밋 수 | 비중 |",
+        "|:---:|:---|:---:|:---|",
+    ]
     for rank, (domain, count) in enumerate(ranked, 1):
+        medal = MEDALS.get(rank, str(rank))
         label = DOMAIN_LABELS.get(domain, domain)
         ratio = count / max_count
         pct = ratio * 100
-        lines.append(
-            f"{rank}. **{label}** — {count} commits  \n"
-            f"   `{bar(ratio)}` {pct:.0f}%"
-        )
+        lines.append(f"| {medal} | **{label}** | {count} | `{bar(ratio)}` {pct:.0f}% |")
+
     return "\n".join(lines) + "\n"
 
 
 def build_section(recent: dict[str, int], total: dict[str, int]) -> str:
-    updated = datetime.now().strftime("%Y-%m-%d %H:%M")
+    updated = datetime.now().strftime("%Y년 %m월 %d일 %H:%M")
     return (
         "\n"
         "## 📊 학습 트렌드 & 도메인 랭킹\n\n"
@@ -113,7 +119,7 @@ def build_section(recent: dict[str, int], total: dict[str, int]) -> str:
         f"{format_ranking(recent)}\n"
         "### 🏆 전체 누적 학습 랭킹\n\n"
         f"{format_ranking(total)}\n"
-        f"> 마지막 업데이트: {updated} (자동 생성)\n"
+        f"> Github Actions을 통해 **{updated}** 에 자동으로 업데이트되었습니다.\n"
     )
 
 
