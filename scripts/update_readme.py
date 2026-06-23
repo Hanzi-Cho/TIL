@@ -97,13 +97,7 @@ def make_donut_url(stats: dict[str, int], title: str) -> str:
             "datasets": [{"data": data, "backgroundColor": colors, "borderWidth": 2}],
         },
         "options": {
-            "title": {
-                "display": True,
-                "text": title,
-                "fontSize": 15,
-                "fontColor": "#000000",
-                "fontStyle": "bold",
-            },
+            "title": {"display": False},
             "legend": {
                 "position": "right",
                 "labels": {
