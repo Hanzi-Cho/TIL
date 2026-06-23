@@ -112,7 +112,7 @@ def make_donut_url(stats: dict[str, int], title: str) -> str:
     }
 
     encoded = urllib.parse.quote(json.dumps(config, ensure_ascii=False))
-    return f"https://quickchart.io/chart?c={encoded}&w=330&h=165&bkg=white"
+    return f"https://quickchart.io/chart?c={encoded}&w=500&h=250&bkg=white"
 
 
 def format_ranking_table(stats: dict[str, int], top_n: int = 5) -> str:
@@ -148,24 +148,25 @@ def build_section(recent: dict[str, int], total: dict[str, int]) -> str:
     if recent_chart and total_chart:
         chart_cells = (
             "<tr>\n"
-            f'<td align="center"><img src="{recent_chart}" /></td>\n'
-            f'<td align="center"><img src="{total_chart}" /></td>\n'
+            f'<td align="center" width="50%"><img src="{recent_chart}" width="100%" /></td>\n'
+            f'<td align="center" width="50%"><img src="{total_chart}" width="100%" /></td>\n'
             "</tr>\n"
         )
 
-    # Single HTML table keeps chart row and ranking row at identical widths
+    # width="50%" on each td + width="100%" on img = image fills its column exactly,
+    # no fixed px that could overflow GitHub's content pane
     unified = (
         '<table width="100%">\n'
         "<tr>\n"
-        '<th align="center">🔥 최근 3개월</th>\n'
-        '<th align="center">🏆 전체 누적</th>\n'
+        '<th align="center" width="50%">🔥 최근 3개월</th>\n'
+        '<th align="center" width="50%">🏆 전체 누적</th>\n'
         "</tr>\n"
         f"{chart_cells}"
         "<tr>\n"
-        "<td>\n\n"
+        '<td width="50%">\n\n'
         f"{recent_table}\n\n"
         "</td>\n"
-        "<td>\n\n"
+        '<td width="50%">\n\n'
         f"{total_table}\n\n"
         "</td>\n"
         "</tr>\n"
