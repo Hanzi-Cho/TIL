@@ -7,7 +7,7 @@ Today I Learned
 
 | 🔥 최근 3개월 | 🏆 전체 누적 |
 |:---:|:---:|
-| ![](https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22concurrency%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B2%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22plugins%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20true%2C%20%22text%22%3A%20%22%EC%B5%9C%EA%B7%BC%203%EA%B0%9C%EC%9B%94%22%2C%20%22fontSize%22%3A%2013%2C%20%22fontColor%22%3A%20%22%23333%22%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2011%2C%20%22boxWidth%22%3A%2012%7D%7D%2C%20%22datalabels%22%3A%20%7B%22display%22%3A%20false%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=380&h=190&bkg=white) | ![](https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22concurrency%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B2%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22plugins%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20true%2C%20%22text%22%3A%20%22%EC%A0%84%EC%B2%B4%20%EB%88%84%EC%A0%81%22%2C%20%22fontSize%22%3A%2013%2C%20%22fontColor%22%3A%20%22%23333%22%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2011%2C%20%22boxWidth%22%3A%2012%7D%7D%2C%20%22datalabels%22%3A%20%7B%22display%22%3A%20false%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=380&h=190&bkg=white) |
+| ![](https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22concurrency%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B2%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22plugins%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20true%2C%20%22text%22%3A%20%22%EC%B5%9C%EA%B7%BC%203%EA%B0%9C%EC%9B%94%22%2C%20%22fontSize%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2012%2C%20%22boxWidth%22%3A%2012%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22datalabels%22%3A%20%7B%22display%22%3A%20false%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=380&h=190&bkg=white) | ![](https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22concurrency%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B2%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22plugins%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20true%2C%20%22text%22%3A%20%22%EC%A0%84%EC%B2%B4%20%EB%88%84%EC%A0%81%22%2C%20%22fontSize%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2012%2C%20%22boxWidth%22%3A%2012%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22datalabels%22%3A%20%7B%22display%22%3A%20false%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=380&h=190&bkg=white) |
 
 <table><tr>
 <td>
@@ -16,8 +16,8 @@ Today I Learned
 
 | 순위 | 도메인 | 커밋 | 비중 |
 |:---:|:---|:---:|:---|
-| 🥇 | **concurrency** | 2 | `████████░░░░` 66.7% |
-| 🥈 | **network** | 1 | `████░░░░░░░░` 33.3% |
+| 🥇 | **concurrency** | 2 | ![](https://progress-bar.dev/67/?width=120&color=4F86C6) 66.7% |
+| 🥈 | **network** | 1 | ![](https://progress-bar.dev/33/?width=120&color=4F86C6) 33.3% |
 
 </td>
 <td>
@@ -26,13 +26,13 @@ Today I Learned
 
 | 순위 | 도메인 | 커밋 | 비중 |
 |:---:|:---|:---:|:---|
-| 🥇 | **concurrency** | 2 | `████████░░░░` 66.7% |
-| 🥈 | **network** | 1 | `████░░░░░░░░` 33.3% |
+| 🥇 | **concurrency** | 2 | ![](https://progress-bar.dev/67/?width=120&color=4F86C6) 66.7% |
+| 🥈 | **network** | 1 | ![](https://progress-bar.dev/33/?width=120&color=4F86C6) 33.3% |
 
 </td>
 </tr></table>
 
-> Github Actions을 통해 **2026년 06월 23일 15:33 (KST)** 에 자동으로 업데이트되었습니다.
+> Github Actions을 통해 **2026년 06월 23일 15:45 (KST)** 에 자동으로 업데이트되었습니다.
 
 <!-- END_SECTION:learning_stats -->
 

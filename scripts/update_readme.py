@@ -78,9 +78,9 @@ def analyze_commits():
     return recent, total
 
 
-def bar(ratio: float, width: int = 12) -> str:
-    filled = round(ratio * width)
-    return "█" * filled + "░" * (width - filled)
+def progress_bar(ratio: float, width: int = 120) -> str:
+    pct_int = round(ratio * 100)
+    return f"![](https://progress-bar.dev/{pct_int}/?width={width}&color=4F86C6)"
 
 
 def make_donut_url(stats: dict[str, int], title: str) -> str:
@@ -100,10 +100,19 @@ def make_donut_url(stats: dict[str, int], title: str) -> str:
                 "title": {
                     "display": True,
                     "text": title,
-                    "fontSize": 13,
-                    "fontColor": "#333",
+                    "fontSize": 14,
+                    "fontColor": "#000000",
+                    "fontStyle": "bold",
                 },
-                "legend": {"position": "right", "labels": {"fontSize": 11, "boxWidth": 12}},
+                "legend": {
+                    "position": "right",
+                    "labels": {
+                        "fontSize": 12,
+                        "boxWidth": 12,
+                        "fontColor": "#000000",
+                        "fontStyle": "bold",
+                    },
+                },
                 "datalabels": {"display": False},
             },
             "cutoutPercentage": 58,
@@ -119,7 +128,7 @@ def format_ranking_table(stats: dict[str, int], top_n: int = 5) -> str:
         return "_기록된 학습 데이터가 없습니다._"
 
     ranked = sorted(stats.items(), key=lambda x: x[1], reverse=True)[:top_n]
-    total_sum = sum(stats.values())  # 비중 = 이 도메인 커밋 수 / 전체 도메인 커밋 수 합계
+    total_sum = sum(stats.values())
 
     lines = [
         "| 순위 | 도메인 | 커밋 | 비중 |",
@@ -127,10 +136,9 @@ def format_ranking_table(stats: dict[str, int], top_n: int = 5) -> str:
     ]
     for rank, (domain, count) in enumerate(ranked, 1):
         medal = MEDALS.get(rank, str(rank))
-        label = domain
         ratio = count / total_sum
         pct = ratio * 100
-        lines.append(f"| {medal} | **{label}** | {count} | `{bar(ratio)}` {pct:.1f}% |")
+        lines.append(f"| {medal} | **{domain}** | {count} | {progress_bar(ratio)} {pct:.1f}% |")
 
     return "\n".join(lines)
 
