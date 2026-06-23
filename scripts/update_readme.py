@@ -18,24 +18,6 @@ THREE_MONTHS_AGO = datetime.now() - timedelta(days=90)  # naive, for git date co
 
 IGNORE_DOMAINS = {"scripts", ".github", ".vscode", "img", "images", "assets"}
 
-DOMAIN_LABELS = {
-    "aaos": "AAOS (Android Auto)",
-    "cicd": "CI/CD",
-    "concurrency": "동시성/병렬",
-    "design-system": "디자인 시스템",
-    "network": "네트워크",
-    "daily": "데일리 기록",
-}
-
-# Short labels used only inside the donut chart to keep URL size down
-DOMAIN_LABELS_SHORT = {
-    "aaos": "AAOS",
-    "cicd": "CI/CD",
-    "concurrency": "동시성",
-    "design-system": "디자인",
-    "network": "네트워크",
-    "daily": "데일리",
-}
 
 CHART_COLORS = ["#4F86C6", "#F4A261", "#2A9D8F", "#E76F51", "#A8DADC", "#9B59B6"]
 MEDALS = {1: "🥇", 2: "🥈", 3: "🥉"}
@@ -97,7 +79,7 @@ def bar(ratio: float, width: int = 12) -> str:
 
 def make_donut_url(stats: dict[str, int], title: str) -> str:
     ranked = sorted(stats.items(), key=lambda x: x[1], reverse=True)[:6]
-    labels = [DOMAIN_LABELS_SHORT.get(d, d) for d, _ in ranked]
+    labels = [d for d, _ in ranked]
     data = [count for _, count in ranked]
     colors = CHART_COLORS[: len(data)]
 
@@ -139,7 +121,7 @@ def format_ranking_table(stats: dict[str, int], top_n: int = 5) -> str:
     ]
     for rank, (domain, count) in enumerate(ranked, 1):
         medal = MEDALS.get(rank, str(rank))
-        label = DOMAIN_LABELS.get(domain, domain)
+        label = domain
         ratio = count / total_sum
         pct = ratio * 100
         lines.append(f"| {medal} | **{label}** | {count} | `{bar(ratio)}` {pct:.1f}% |")
