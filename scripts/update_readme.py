@@ -3,14 +3,18 @@ Analyzes git commit history by domain directory and updates README.md
 with learning trend rankings (recent 3 months vs all-time).
 """
 
+import json
 import os
 import re
 import subprocess
-from datetime import datetime, timedelta
+import urllib.parse
 from collections import defaultdict
+from datetime import datetime, timedelta, timezone
 
 README_PATH = os.path.join(os.path.dirname(__file__), "..", "README.md")
-THREE_MONTHS_AGO = datetime.now() - timedelta(days=90)
+
+KST = timezone(timedelta(hours=9))
+THREE_MONTHS_AGO = datetime.now() - timedelta(days=90)  # naive, for git date comparison
 
 IGNORE_DOMAINS = {"scripts", ".github", ".vscode", "img", "images", "assets"}
 
@@ -23,24 +27,32 @@ DOMAIN_LABELS = {
     "daily": "데일리 기록",
 }
 
+# Short labels used only inside the donut chart to keep URL size down
+DOMAIN_LABELS_SHORT = {
+    "aaos": "AAOS",
+    "cicd": "CI/CD",
+    "concurrency": "동시성",
+    "design-system": "디자인",
+    "network": "네트워크",
+    "daily": "데일리",
+}
+
+CHART_COLORS = ["#4F86C6", "#F4A261", "#2A9D8F", "#E76F51", "#A8DADC", "#9B59B6"]
+MEDALS = {1: "🥇", 2: "🥈", 3: "🥉"}
+
 
 def get_domain(filepath: str) -> str | None:
-    """Extract domain name from a file path."""
     parts = filepath.strip().split("/")
     if len(parts) < 2:
         return None
-
     if parts[0] == "knowledge" and len(parts) >= 3:
         return parts[1]
-
     if parts[0] == "daily":
         return "daily"
-
-    # Legacy paths before knowledge/ restructure (e.g. concurrency/foo.md)
+    # Legacy paths before knowledge/ restructure
     if parts[0] not in IGNORE_DOMAINS and parts[0] != "README.md":
         if os.path.isdir(os.path.join(os.path.dirname(__file__), "..", parts[0])):
             return parts[0]
-
     return None
 
 
@@ -62,18 +74,15 @@ def analyze_commits():
         line = raw_line.strip()
         if not line:
             continue
-
         if line.startswith("["):
             try:
                 current_date = datetime.strptime(line.strip("[]"), "%Y-%m-%d")
             except ValueError:
                 pass
             continue
-
         domain = get_domain(line)
         if not domain:
             continue
-
         total[domain] += 1
         if current_date and current_date >= THREE_MONTHS_AGO:
             recent[domain] += 1
@@ -81,45 +90,101 @@ def analyze_commits():
     return recent, total
 
 
-MEDALS = {1: "🥇", 2: "🥈", 3: "🥉"}
-
-
-def bar(ratio: float, width: int = 14) -> str:
+def bar(ratio: float, width: int = 12) -> str:
     filled = round(ratio * width)
     return "█" * filled + "░" * (width - filled)
 
 
-def format_ranking(stats: dict[str, int], top_n: int = 5) -> str:
+def make_donut_url(stats: dict[str, int], title: str) -> str:
+    ranked = sorted(stats.items(), key=lambda x: x[1], reverse=True)[:6]
+    labels = [DOMAIN_LABELS_SHORT.get(d, d) for d, _ in ranked]
+    data = [count for _, count in ranked]
+    colors = CHART_COLORS[: len(data)]
+
+    config = {
+        "type": "doughnut",
+        "data": {
+            "labels": labels,
+            "datasets": [{"data": data, "backgroundColor": colors, "borderWidth": 2}],
+        },
+        "options": {
+            "plugins": {
+                "title": {
+                    "display": True,
+                    "text": title,
+                    "fontSize": 13,
+                    "fontColor": "#333",
+                },
+                "legend": {"position": "right", "labels": {"fontSize": 11, "boxWidth": 12}},
+                "datalabels": {"display": False},
+            },
+            "cutoutPercentage": 58,
+        },
+    }
+
+    encoded = urllib.parse.quote(json.dumps(config, ensure_ascii=False))
+    return f"https://quickchart.io/chart?c={encoded}&w=380&h=190&bkg=white"
+
+
+def format_ranking_table(stats: dict[str, int], top_n: int = 5) -> str:
     if not stats:
-        return "_기록된 학습 데이터가 없습니다._\n"
+        return "_기록된 학습 데이터가 없습니다._"
 
     ranked = sorted(stats.items(), key=lambda x: x[1], reverse=True)[:top_n]
-    max_count = ranked[0][1]
+    total_sum = sum(stats.values())  # 비중 = 이 도메인 커밋 수 / 전체 도메인 커밋 수 합계
 
     lines = [
-        "| 순위 | 도메인 | 커밋 수 | 비중 |",
+        "| 순위 | 도메인 | 커밋 | 비중 |",
         "|:---:|:---|:---:|:---|",
     ]
     for rank, (domain, count) in enumerate(ranked, 1):
         medal = MEDALS.get(rank, str(rank))
         label = DOMAIN_LABELS.get(domain, domain)
-        ratio = count / max_count
+        ratio = count / total_sum
         pct = ratio * 100
-        lines.append(f"| {medal} | **{label}** | {count} | `{bar(ratio)}` {pct:.0f}% |")
+        lines.append(f"| {medal} | **{label}** | {count} | `{bar(ratio)}` {pct:.1f}% |")
 
-    return "\n".join(lines) + "\n"
+    return "\n".join(lines)
 
 
 def build_section(recent: dict[str, int], total: dict[str, int]) -> str:
-    updated = datetime.now().strftime("%Y년 %m월 %d일 %H:%M")
+    updated = datetime.now(KST).strftime("%Y년 %m월 %d일 %H:%M")
+
+    recent_chart = make_donut_url(recent, "최근 3개월") if recent else None
+    total_chart = make_donut_url(total, "전체 누적") if total else None
+
+    if recent_chart and total_chart:
+        chart_row = (
+            "| 🔥 최근 3개월 | 🏆 전체 누적 |\n"
+            "|:---:|:---:|\n"
+            f"| ![]({recent_chart}) | ![]({total_chart}) |\n"
+        )
+    else:
+        chart_row = ""
+
+    recent_table = format_ranking_table(recent)
+    total_table = format_ranking_table(total)
+
+    # HTML table for side-by-side layout (blank lines needed for markdown inside <td>)
+    side_by_side = (
+        "<table><tr>\n"
+        "<td>\n\n"
+        "### 🔥 최근 3개월 집중 도메인\n\n"
+        f"{recent_table}\n\n"
+        "</td>\n"
+        "<td>\n\n"
+        "### 🏆 전체 누적 학습 랭킹\n\n"
+        f"{total_table}\n\n"
+        "</td>\n"
+        "</tr></table>\n"
+    )
+
     return (
         "\n"
         "## 📊 학습 트렌드 & 도메인 랭킹\n\n"
-        "### 🔥 최근 3개월 집중 도메인\n\n"
-        f"{format_ranking(recent)}\n"
-        "### 🏆 전체 누적 학습 랭킹\n\n"
-        f"{format_ranking(total)}\n"
-        f"> Github Actions을 통해 **{updated}** 에 자동으로 업데이트되었습니다.\n"
+        f"{chart_row}\n"
+        f"{side_by_side}\n"
+        f"> Github Actions을 통해 **{updated} (KST)** 에 자동으로 업데이트되었습니다.\n"
     )
 
 
@@ -142,8 +207,8 @@ def update_readme():
         f.write(new_content)
 
     print("README.md updated.")
-    print(f"  Recent 3m domains: {dict(sorted(recent.items(), key=lambda x: -x[1]))}")
-    print(f"  All-time domains:  {dict(sorted(total.items(), key=lambda x: -x[1]))}")
+    print(f"  Recent 3m : {dict(sorted(recent.items(), key=lambda x: -x[1]))}")
+    print(f"  All-time  : {dict(sorted(total.items(), key=lambda x: -x[1]))}")
 
 
 if __name__ == "__main__":
