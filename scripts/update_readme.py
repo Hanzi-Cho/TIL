@@ -80,7 +80,9 @@ def analyze_commits():
 
 def progress_bar(ratio: float) -> str:
     pct_int = round(ratio * 100)
-    return f"![](https://geps.dev/progress/{pct_int})"
+    # Use <img width> instead of markdown ![]() — GitHub allows width on <img>
+    # but strips width from <td>, so this is the only way to constrain bar size
+    return f'<img src="https://geps.dev/progress/{pct_int}" width="80">'
 
 
 def make_donut_url(stats: dict[str, int], title: str) -> str:

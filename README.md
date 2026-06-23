@@ -19,22 +19,22 @@ Today I Learned
 
 | 순위 | 도메인 | 커밋 | 비중 |
 |:---:|:---|:---:|:---|
-| 🥇 | **concurrency** | 2 | ![](https://geps.dev/progress/67) 66.7% |
-| 🥈 | **network** | 1 | ![](https://geps.dev/progress/33) 33.3% |
+| 🥇 | **concurrency** | 2 | <img src="https://geps.dev/progress/67" width="80"> 66.7% |
+| 🥈 | **network** | 1 | <img src="https://geps.dev/progress/33" width="80"> 33.3% |
 
 </td>
 <td width="50%">
 
 | 순위 | 도메인 | 커밋 | 비중 |
 |:---:|:---|:---:|:---|
-| 🥇 | **concurrency** | 2 | ![](https://geps.dev/progress/67) 66.7% |
-| 🥈 | **network** | 1 | ![](https://geps.dev/progress/33) 33.3% |
+| 🥇 | **concurrency** | 2 | <img src="https://geps.dev/progress/67" width="80"> 66.7% |
+| 🥈 | **network** | 1 | <img src="https://geps.dev/progress/33" width="80"> 33.3% |
 
 </td>
 </tr>
 </table>
 
-> Github Actions을 통해 **2026년 06월 23일 16:18 (KST)** 에 자동으로 업데이트되었습니다.
+> Github Actions을 통해 **2026년 06월 23일 16:46 (KST)** 에 자동으로 업데이트되었습니다.
 
 <!-- END_SECTION:learning_stats -->
 
