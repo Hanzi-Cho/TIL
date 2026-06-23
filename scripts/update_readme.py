@@ -16,36 +16,42 @@ README_PATH = os.path.join(os.path.dirname(__file__), "..", "README.md")
 KST = timezone(timedelta(hours=9))
 THREE_MONTHS_AGO = datetime.now() - timedelta(days=90)  # naive, for git date comparison
 
-IGNORE_DOMAINS = {"scripts", ".github", ".vscode", "img", "images", "assets"}
-
-
 CHART_COLORS = ["#4F86C6", "#F4A261", "#2A9D8F", "#E76F51", "#A8DADC", "#9B59B6"]
 MEDALS = {1: "🥇", 2: "🥈", 3: "🥉"}
 
+REPO_ROOT = os.path.dirname(README_PATH)
 
-def get_domain(filepath: str) -> str | None:
+
+def get_knowledge_domains() -> set[str]:
+    """Discover all current subdirectories under knowledge/ at runtime."""
+    knowledge_path = os.path.join(REPO_ROOT, "knowledge")
+    if not os.path.isdir(knowledge_path):
+        return set()
+    return {
+        d for d in os.listdir(knowledge_path)
+        if os.path.isdir(os.path.join(knowledge_path, d)) and not d.startswith(".")
+    }
+
+
+def get_domain(filepath: str, knowledge_domains: set[str]) -> str | None:
+    """Return the knowledge subdomain for a file path, or None to skip."""
     parts = filepath.strip().split("/")
-    if len(parts) < 2:
-        return None
-    if parts[0] == "knowledge" and len(parts) >= 3:
+    # Only count files under knowledge/<domain>/
+    if len(parts) >= 3 and parts[0] == "knowledge" and parts[1] in knowledge_domains:
         return parts[1]
-    if parts[0] == "daily":
-        return "daily"
-    # Legacy paths before knowledge/ restructure
-    if parts[0] not in IGNORE_DOMAINS and parts[0] != "README.md":
-        if os.path.isdir(os.path.join(os.path.dirname(__file__), "..", parts[0])):
-            return parts[0]
     return None
 
 
 def analyze_commits():
+    knowledge_domains = get_knowledge_domains()
+
     cmd = ["git", "log", "--name-only", "--pretty=format:[%ad]", "--date=short"]
     result = subprocess.run(
         cmd,
         stdout=subprocess.PIPE,
         text=True,
         encoding="utf-8",
-        cwd=os.path.dirname(README_PATH),
+        cwd=REPO_ROOT,
     )
 
     recent: dict[str, int] = defaultdict(int)
@@ -62,7 +68,7 @@ def analyze_commits():
             except ValueError:
                 pass
             continue
-        domain = get_domain(line)
+        domain = get_domain(line, knowledge_domains)
         if not domain:
             continue
         total[domain] += 1
