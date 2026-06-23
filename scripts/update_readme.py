@@ -141,37 +141,41 @@ def build_section(recent: dict[str, int], total: dict[str, int]) -> str:
     recent_chart = make_donut_url(recent, "최근 3개월") if recent else None
     total_chart = make_donut_url(total, "전체 누적") if total else None
 
-    if recent_chart and total_chart:
-        chart_row = (
-            "| 🔥 최근 3개월 | 🏆 전체 누적 |\n"
-            "|:---:|:---:|\n"
-            f"| ![]({recent_chart}) | ![]({total_chart}) |\n"
-        )
-    else:
-        chart_row = ""
-
     recent_table = format_ranking_table(recent)
     total_table = format_ranking_table(total)
 
-    # HTML table for side-by-side layout (blank lines needed for markdown inside <td>)
-    side_by_side = (
-        "<table><tr>\n"
+    chart_cells = ""
+    if recent_chart and total_chart:
+        chart_cells = (
+            "<tr>\n"
+            f'<td align="center"><img src="{recent_chart}" /></td>\n'
+            f'<td align="center"><img src="{total_chart}" /></td>\n'
+            "</tr>\n"
+        )
+
+    # Single HTML table keeps chart row and ranking row at identical widths
+    unified = (
+        '<table width="100%">\n'
+        "<tr>\n"
+        '<th align="center">🔥 최근 3개월</th>\n'
+        '<th align="center">🏆 전체 누적</th>\n'
+        "</tr>\n"
+        f"{chart_cells}"
+        "<tr>\n"
         "<td>\n\n"
-        "### 🔥 최근 3개월 집중 도메인\n\n"
         f"{recent_table}\n\n"
         "</td>\n"
         "<td>\n\n"
-        "### 🏆 전체 누적 학습 랭킹\n\n"
         f"{total_table}\n\n"
         "</td>\n"
-        "</tr></table>\n"
+        "</tr>\n"
+        "</table>\n"
     )
 
     return (
         "\n"
         "## 📊 학습 트렌드 & 도메인 랭킹\n\n"
-        f"{chart_row}\n"
-        f"{side_by_side}\n"
+        f"{unified}\n"
         f"> Github Actions을 통해 **{updated} (KST)** 에 자동으로 업데이트되었습니다.\n"
     )
 
