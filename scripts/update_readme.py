@@ -78,9 +78,9 @@ def analyze_commits():
     return recent, total
 
 
-def progress_bar(ratio: float, width: int = 120) -> str:
+def progress_bar(ratio: float) -> str:
     pct_int = round(ratio * 100)
-    return f"![](https://progress-bar.dev/{pct_int}/?width={width}&color=4F86C6)"
+    return f"![](https://geps.dev/progress/{pct_int})"
 
 
 def make_donut_url(stats: dict[str, int], title: str) -> str:
@@ -89,6 +89,7 @@ def make_donut_url(stats: dict[str, int], title: str) -> str:
     data = [count for _, count in ranked]
     colors = CHART_COLORS[: len(data)]
 
+    # Chart.js v2 syntax: title/legend go directly under options, NOT inside plugins
     config = {
         "type": "doughnut",
         "data": {
@@ -96,24 +97,21 @@ def make_donut_url(stats: dict[str, int], title: str) -> str:
             "datasets": [{"data": data, "backgroundColor": colors, "borderWidth": 2}],
         },
         "options": {
-            "plugins": {
-                "title": {
-                    "display": True,
-                    "text": title,
-                    "fontSize": 14,
+            "title": {
+                "display": True,
+                "text": title,
+                "fontSize": 15,
+                "fontColor": "#000000",
+                "fontStyle": "bold",
+            },
+            "legend": {
+                "position": "right",
+                "labels": {
+                    "fontSize": 13,
+                    "boxWidth": 14,
                     "fontColor": "#000000",
                     "fontStyle": "bold",
                 },
-                "legend": {
-                    "position": "right",
-                    "labels": {
-                        "fontSize": 12,
-                        "boxWidth": 12,
-                        "fontColor": "#000000",
-                        "fontStyle": "bold",
-                    },
-                },
-                "datalabels": {"display": False},
             },
             "cutoutPercentage": 58,
         },
