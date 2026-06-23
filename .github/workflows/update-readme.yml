@@ -30,7 +30,7 @@ jobs:
 
       - name: Commit and push if changed
         run: |
-          git config user.name 'hanzicho'
+          git config user.name 'Hanzi-Cho'
           git config user.email 'whwogus1983@gmail.com'
           git diff --quiet && git diff --staged --quiet \
             || (git add README.md && git commit -m "chore: update learning stats [skip ci]" && git push)
