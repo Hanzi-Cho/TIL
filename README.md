@@ -11,32 +11,36 @@ Today I Learned
 <th align="center" width="50%">🏆 전체 누적</th>
 </tr>
 <tr>
-<td align="center" width="50%"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22concurrency%22%2C%20%22automation%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B2%2C%201%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%2C%20%22%232A9D8F%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=500&h=250&bkg=white" width="100%" /></td>
-<td align="center" width="50%"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22concurrency%22%2C%20%22automation%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B2%2C%201%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%2C%20%22%232A9D8F%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=500&h=250&bkg=white" width="100%" /></td>
+<td align="center" width="50%"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22design-system%22%2C%20%22concurrency%22%2C%20%22aaos%22%2C%20%22automation%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B13%2C%203%2C%202%2C%201%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%2C%20%22%232A9D8F%22%2C%20%22%23E76F51%22%2C%20%22%23A8DADC%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=500&h=250&bkg=white" width="100%" /></td>
+<td align="center" width="50%"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22design-system%22%2C%20%22concurrency%22%2C%20%22aaos%22%2C%20%22automation%22%2C%20%22network%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B13%2C%203%2C%202%2C%201%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%2C%20%22%232A9D8F%22%2C%20%22%23E76F51%22%2C%20%22%23A8DADC%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=500&h=250&bkg=white" width="100%" /></td>
 </tr>
 <tr>
 <td width="50%">
 
 | 순위 | 도메인 | 커밋 | 비중 |
 |:---:|:---|:---:|:---|
-| 🥇 | **concurrency** | 2 | <img src="https://geps.dev/progress/50" width="80"> 50.0% |
-| 🥈 | **automation** | 1 | <img src="https://geps.dev/progress/25" width="80"> 25.0% |
-| 🥉 | **network** | 1 | <img src="https://geps.dev/progress/25" width="80"> 25.0% |
+| 🥇 | **design-system** | 13 | <img src="https://geps.dev/progress/65" width="80"> 65.0% |
+| 🥈 | **concurrency** | 3 | <img src="https://geps.dev/progress/15" width="80"> 15.0% |
+| 🥉 | **aaos** | 2 | <img src="https://geps.dev/progress/10" width="80"> 10.0% |
+| 4 | **automation** | 1 | <img src="https://geps.dev/progress/5" width="80"> 5.0% |
+| 5 | **network** | 1 | <img src="https://geps.dev/progress/5" width="80"> 5.0% |
 
 </td>
 <td width="50%">
 
 | 순위 | 도메인 | 커밋 | 비중 |
 |:---:|:---|:---:|:---|
-| 🥇 | **concurrency** | 2 | <img src="https://geps.dev/progress/50" width="80"> 50.0% |
-| 🥈 | **automation** | 1 | <img src="https://geps.dev/progress/25" width="80"> 25.0% |
-| 🥉 | **network** | 1 | <img src="https://geps.dev/progress/25" width="80"> 25.0% |
+| 🥇 | **design-system** | 13 | <img src="https://geps.dev/progress/65" width="80"> 65.0% |
+| 🥈 | **concurrency** | 3 | <img src="https://geps.dev/progress/15" width="80"> 15.0% |
+| 🥉 | **aaos** | 2 | <img src="https://geps.dev/progress/10" width="80"> 10.0% |
+| 4 | **automation** | 1 | <img src="https://geps.dev/progress/5" width="80"> 5.0% |
+| 5 | **network** | 1 | <img src="https://geps.dev/progress/5" width="80"> 5.0% |
 
 </td>
 </tr>
 </table>
 
-> Github Actions을 통해 **2026년 06월 24일 02:19 (KST)** 에 자동으로 업데이트되었습니다.
+> Github Actions을 통해 **2026년 06월 24일 08:34 (KST)** 에 자동으로 업데이트되었습니다.
 
 <!-- END_SECTION:learning_stats -->
 
