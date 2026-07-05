@@ -27,9 +27,11 @@ git add .
 # 로컬 커밋 수행
 git commit -m "${TODAY} daily commit"
 
-# 6. Git Push 실행
-# 크론탭 환경에서 SSH 키 권한이나 인증 헬퍼 연동을 위해 필요한 경우 대비
-# (사용자가 패스워드 없이 SSH 키 또는 Credential Helper를 사용 중이어야 정상 동작합니다.)
+# 6. Git Push 실행 전 원격 저장소 변경 사항을 안전하게 머지 (skip ci 등의 자동 커밋 대응)
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Pulling and merging remote changes before push..."
+git pull --no-rebase --no-edit origin main >> auto_push.log 2>&1
+
+# 7. Git Push 실행
 git push origin main >> auto_push.log 2>&1
 
 if [ $? -eq 0 ]; then
