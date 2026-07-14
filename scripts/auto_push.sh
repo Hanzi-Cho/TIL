@@ -8,7 +8,8 @@ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export LANG=ko_KR.UTF-8
 
 # 2. TIL 프로젝트 경로 설정
-TIL_DIR="/home/hanzicho/workspace/til"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+TIL_DIR="$(dirname "$SCRIPT_DIR")"
 cd "$TIL_DIR" || exit 1
 
 # 3. 변경 사항이 있는지 확인
