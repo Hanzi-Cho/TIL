@@ -19,28 +19,28 @@ Today I Learned
 
 | 순위 | 도메인 | 커밋 | 비중 |
 |:---:|:---|:---:|:---|
-| 🥇 | **design-system** | 14 | <img src="https://geps.dev/progress/23" width="80"> 23.3% |
-| 🥈 | **aaos** | 13 | <img src="https://geps.dev/progress/22" width="80"> 21.7% |
-| 🥉 | **react-native** | 10 | <img src="https://geps.dev/progress/17" width="80"> 16.7% |
-| 4 | **frontend** | 6 | <img src="https://geps.dev/progress/10" width="80"> 10.0% |
-| 5 | **concurrency** | 5 | <img src="https://geps.dev/progress/8" width="80"> 8.3% |
+| 🥇 | **design-system** | 14 | <img src="https://geps.dev/progress/23" width="80"> 22.6% |
+| 🥈 | **aaos** | 13 | <img src="https://geps.dev/progress/21" width="80"> 21.0% |
+| 🥉 | **react-native** | 10 | <img src="https://geps.dev/progress/16" width="80"> 16.1% |
+| 4 | **frontend** | 6 | <img src="https://geps.dev/progress/10" width="80"> 9.7% |
+| 5 | **concurrency** | 5 | <img src="https://geps.dev/progress/8" width="80"> 8.1% |
 
 </td>
 <td width="50%">
 
 | 순위 | 도메인 | 커밋 | 비중 |
 |:---:|:---|:---:|:---|
-| 🥇 | **design-system** | 14 | <img src="https://geps.dev/progress/23" width="80"> 23.3% |
-| 🥈 | **aaos** | 13 | <img src="https://geps.dev/progress/22" width="80"> 21.7% |
-| 🥉 | **react-native** | 10 | <img src="https://geps.dev/progress/17" width="80"> 16.7% |
-| 4 | **frontend** | 6 | <img src="https://geps.dev/progress/10" width="80"> 10.0% |
-| 5 | **concurrency** | 5 | <img src="https://geps.dev/progress/8" width="80"> 8.3% |
+| 🥇 | **design-system** | 14 | <img src="https://geps.dev/progress/23" width="80"> 22.6% |
+| 🥈 | **aaos** | 13 | <img src="https://geps.dev/progress/21" width="80"> 21.0% |
+| 🥉 | **react-native** | 10 | <img src="https://geps.dev/progress/16" width="80"> 16.1% |
+| 4 | **frontend** | 6 | <img src="https://geps.dev/progress/10" width="80"> 9.7% |
+| 5 | **concurrency** | 5 | <img src="https://geps.dev/progress/8" width="80"> 8.1% |
 
 </td>
 </tr>
 </table>
 
-> Github Actions을 통해 **2026년 07월 17일 01:18 (KST)** 에 자동으로 업데이트되었습니다.
+> Github Actions을 통해 **2026년 07월 20일 00:59 (KST)** 에 자동으로 업데이트되었습니다.
 
 <!-- END_SECTION:learning_stats -->
 
