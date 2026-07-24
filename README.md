@@ -11,36 +11,36 @@ Today I Learned
 <th align="center" width="50%">🏆 전체 누적</th>
 </tr>
 <tr>
-<td align="center" width="50%"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22design-system%22%2C%20%22aaos%22%2C%20%22react-native%22%2C%20%22frontend%22%2C%20%22android%22%2C%20%22concurrency%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B15%2C%2013%2C%2010%2C%206%2C%205%2C%205%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%2C%20%22%232A9D8F%22%2C%20%22%23E76F51%22%2C%20%22%23A8DADC%22%2C%20%22%239B59B6%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=500&h=250&bkg=white" width="100%" /></td>
-<td align="center" width="50%"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22design-system%22%2C%20%22aaos%22%2C%20%22react-native%22%2C%20%22frontend%22%2C%20%22android%22%2C%20%22concurrency%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B15%2C%2013%2C%2010%2C%206%2C%205%2C%205%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%2C%20%22%232A9D8F%22%2C%20%22%23E76F51%22%2C%20%22%23A8DADC%22%2C%20%22%239B59B6%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=500&h=250&bkg=white" width="100%" /></td>
+<td align="center" width="50%"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22design-system%22%2C%20%22aaos%22%2C%20%22react-native%22%2C%20%22frontend%22%2C%20%22android%22%2C%20%22concurrency%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B15%2C%2013%2C%2010%2C%207%2C%205%2C%205%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%2C%20%22%232A9D8F%22%2C%20%22%23E76F51%22%2C%20%22%23A8DADC%22%2C%20%22%239B59B6%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=500&h=250&bkg=white" width="100%" /></td>
+<td align="center" width="50%"><img src="https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22design-system%22%2C%20%22aaos%22%2C%20%22react-native%22%2C%20%22frontend%22%2C%20%22android%22%2C%20%22concurrency%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B15%2C%2013%2C%2010%2C%207%2C%205%2C%205%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234F86C6%22%2C%20%22%23F4A261%22%2C%20%22%232A9D8F%22%2C%20%22%23E76F51%22%2C%20%22%23A8DADC%22%2C%20%22%239B59B6%22%5D%2C%20%22borderWidth%22%3A%202%7D%5D%7D%2C%20%22options%22%3A%20%7B%22title%22%3A%20%7B%22display%22%3A%20false%7D%2C%20%22legend%22%3A%20%7B%22position%22%3A%20%22right%22%2C%20%22labels%22%3A%20%7B%22fontSize%22%3A%2013%2C%20%22boxWidth%22%3A%2014%2C%20%22fontColor%22%3A%20%22%23000000%22%2C%20%22fontStyle%22%3A%20%22bold%22%7D%7D%2C%20%22cutoutPercentage%22%3A%2058%7D%7D&w=500&h=250&bkg=white" width="100%" /></td>
 </tr>
 <tr>
 <td width="50%">
 
 | 순위 | 도메인 | 커밋 | 비중 |
 |:---:|:---|:---:|:---|
-| 🥇 | **design-system** | 15 | <img src="https://geps.dev/progress/23" width="80"> 22.7% |
-| 🥈 | **aaos** | 13 | <img src="https://geps.dev/progress/20" width="80"> 19.7% |
-| 🥉 | **react-native** | 10 | <img src="https://geps.dev/progress/15" width="80"> 15.2% |
-| 4 | **frontend** | 6 | <img src="https://geps.dev/progress/9" width="80"> 9.1% |
-| 5 | **android** | 5 | <img src="https://geps.dev/progress/8" width="80"> 7.6% |
+| 🥇 | **design-system** | 15 | <img src="https://geps.dev/progress/22" width="80"> 22.1% |
+| 🥈 | **aaos** | 13 | <img src="https://geps.dev/progress/19" width="80"> 19.1% |
+| 🥉 | **react-native** | 10 | <img src="https://geps.dev/progress/15" width="80"> 14.7% |
+| 4 | **frontend** | 7 | <img src="https://geps.dev/progress/10" width="80"> 10.3% |
+| 5 | **android** | 5 | <img src="https://geps.dev/progress/7" width="80"> 7.4% |
 
 </td>
 <td width="50%">
 
 | 순위 | 도메인 | 커밋 | 비중 |
 |:---:|:---|:---:|:---|
-| 🥇 | **design-system** | 15 | <img src="https://geps.dev/progress/23" width="80"> 22.7% |
-| 🥈 | **aaos** | 13 | <img src="https://geps.dev/progress/20" width="80"> 19.7% |
-| 🥉 | **react-native** | 10 | <img src="https://geps.dev/progress/15" width="80"> 15.2% |
-| 4 | **frontend** | 6 | <img src="https://geps.dev/progress/9" width="80"> 9.1% |
-| 5 | **android** | 5 | <img src="https://geps.dev/progress/8" width="80"> 7.6% |
+| 🥇 | **design-system** | 15 | <img src="https://geps.dev/progress/22" width="80"> 22.1% |
+| 🥈 | **aaos** | 13 | <img src="https://geps.dev/progress/19" width="80"> 19.1% |
+| 🥉 | **react-native** | 10 | <img src="https://geps.dev/progress/15" width="80"> 14.7% |
+| 4 | **frontend** | 7 | <img src="https://geps.dev/progress/10" width="80"> 10.3% |
+| 5 | **android** | 5 | <img src="https://geps.dev/progress/7" width="80"> 7.4% |
 
 </td>
 </tr>
 </table>
 
-> Github Actions을 통해 **2026년 07월 24일 01:37 (KST)** 에 자동으로 업데이트되었습니다.
+> Github Actions을 통해 **2026년 07월 24일 16:31 (KST)** 에 자동으로 업데이트되었습니다.
 
 <!-- END_SECTION:learning_stats -->
 
